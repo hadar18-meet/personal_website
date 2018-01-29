@@ -30,6 +30,16 @@
     	<li class="active"><a href="/profile">profile</a></li>
       <li><a href="/Q&A">Q&A</a></li>
       <li><a href="/About">About</a></li>
-
+</ul>
+</div>
+<form action="{{ url_for('profile') }}" method="post">
+question:<br>
+<input type="text" name="question">
+<br>
+subject: <br>
+<input type="text" name="subject">
+explanation:<br>
+<input type="text" name="explanation">
+</form>
 </body>
 </html>
