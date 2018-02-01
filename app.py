@@ -7,33 +7,39 @@ app = Flask(__name__)
 db = SQLAlchemy(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 @app.route('/home')
-@app.route('/')
 def home():
 	return render_template('home.html')
 @app.route('/Q&A')
 def Q_and_A():
-	return render_template('Q&A.html')	
-@app.route('/profile')
+	return render_template('Q&A.html')
+
+@app.route('/profile', methods=['POST', 'GET'])
 def profile():
-	'''
-	question = request.form['question']
-	subject = request.form['subject']
-	explanation = request.form['explanation']
-	db.session.add(Qustion)
-	db.session.commit()
-	'''
-	return render_template('profile.html')	
+	if request.method == 'GET':
+		return render_template('profile.html')
+	else:	
+		question = request.form['question']
+		subject = request.form['subject']
+		explanation = request.form['explanation']
+		db.session.add(Qustion)
+		db.session.commit()
+		return render_template('profile.html')	
 @app.route('/About')
 def About():
 	return render_template('About.html')	
-@app.route('/singin', methods=['POST'])
+@app.route('/singin', methods=['POST', 'GET'])
+@app.route('/')
 def singin():
-	UserName = request.form['User_name']
-	passward = request.form['Passward']
-	fullname = request.form['full_name']
-	db.session.add(UserInfo)
-	db.session.commit()
-	return render_template('singin.html')	
+	if request.method == 'GET':
+		return render_template('singin.html')
+	else:	
+		UserName = request.form['User_name']
+		passward = request.form['Passward']
+		fullname = request.form['full_name']
+		UserInfoObject = UserInfo(UserName, passward, fullname)
+		db.session.add(UserInfoObject)
+		db.session.commit()
+		return render_template('/home')	
 
 class UserInfo(db.Model):
 	# class user(Base):
@@ -65,7 +71,7 @@ class Qustion(db.Model):
 	userId= db.Column(db.Integer)
 
 	''
-	def __init__(self,question,subject,explanation,userId):
+	def __init__(self,question,subject,explanation):
 		self.question=question
 		self.subject=subject
 		self.explanation=explanation
