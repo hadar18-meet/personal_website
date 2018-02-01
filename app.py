@@ -1,3 +1,4 @@
+
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 from flask import render_template 
@@ -12,8 +13,15 @@ def home():
 @app.route('/Q&A')
 def Q_and_A():
 	return render_template('Q&A.html')	
-@app.route('/profile', methods=['POST'])
+@app.route('/profile')
 def profile():
+	'''
+	question = request.form['question']
+	subject = request.form['subject']
+	explanation = request.form['explanation']
+	db.session.add(Qustion)
+	db.session.commit()
+	'''
 	return render_template('profile.html')	
 @app.route('/About')
 def About():
@@ -32,9 +40,9 @@ class UserInfo(db.Model):
 	__tablename__ = 'user'
 
 	id = db.Column(	db.Integer, primary_key=True)
-	UserName = Column(db.String(120))
-	passward = Column(db.String(120))
-	fullname = Column(db.String(120))
+	UserName = db.Column(db.String(120))
+	passward = db.Column(db.String(120))
+	fullname = db.Column(db.String(120))
 	"""docstring for user"""
 	def __init__(self, UserName, passward, fullname):
 		super(user, self).__init__()
@@ -56,16 +64,15 @@ class Qustion(db.Model):
 	explanation =db.Column(db.String(120))
 	userId= db.Column(db.Integer)
 
-	def __init__(self,name,subject,userId):
-		self.name=name
+	''
+	def __init__(self,question,subject,explanation,userId):
+		self.question=question
 		self.subject=subject
+		self.explanation=explanation
 		self.userId=userId
-
-
-
 	def __repr__(self):
-	    return "<User(name='%s', subject='%s', userId='%i')'>" % (
-	                       self.name, self.subject, self.userId, self.pic)
+	    return "<User(question='%s', subject='%s', explanation = '%s', userId='%i')'>" % (
+	                       self.question, self.subject, self.explanation, self.userId)
 db.create_all()
 
 			
