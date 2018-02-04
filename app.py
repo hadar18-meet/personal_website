@@ -25,9 +25,11 @@ def profile():
 		db.session.add(Qustion_Object)
 		db.session.commit()
 		return render_template('Q&A.html')	
+'''
 @app.route('/About')
 def About():
-	return render_template('About.html')	
+	return render_template('About.html')
+	'''	
 @app.route('/singin', methods=['POST', 'GET'])
 @app.route('/', methods=['POST', 'GET'])
 def singin():
