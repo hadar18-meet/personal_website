@@ -27,30 +27,8 @@
       <a class="navbar-brand" href="/home">KnoWeb</a>
     </div>
     <ul class="nav navbar-nav">
-    	<li class="activ e"><a href="/profile">profile</a></li>
+    	<li><a href="/profile">profile</a></li>
       <li><a href="/Q&A">Q&A</a></li>
-      <li><a href="/about">About</a></li>
-</ul>
-</div>
-</nav>
-<br>
-<br>
-<br>
-<br>
-<br>
-<div>
-<form action="{{ url_for('profile') }}" method="post">
-question:<br>
-<input type="text" name="question">
-<br>
-subject: <br>
-<input type="text" name="subject">
-<br>
-explanation:<br>
-<input type="text" name="explanation">
-<br>
-<input type="submit" value="Submit">
-</form> 
-</div>
-</body>
+      <li class="active"><a href="/about">About</a></li>
+</body class="active"> 
 </html>
