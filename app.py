@@ -21,14 +21,15 @@ def profile():
 		question = request.form['question']
 		subject = request.form['subject']
 		explanation = request.form['explanation']
-		db.session.add(Qustion)
+		Qustion_Object = Qustion(question, subject, explanation)
+		db.session.add(Qustion_Object)
 		db.session.commit()
-		return render_template('profile.html')	
+		return render_template('Q&A.html')	
 @app.route('/About')
 def About():
 	return render_template('About.html')	
 @app.route('/singin', methods=['POST', 'GET'])
-@app.route('/')
+@app.route('/', methods=['POST', 'GET'])
 def singin():
 	if request.method == 'GET':
 		return render_template('singin.html')
@@ -39,7 +40,7 @@ def singin():
 		UserInfoObject = UserInfo(UserName, passward, fullname)
 		db.session.add(UserInfoObject)
 		db.session.commit()
-		return render_template('/home')	
+		return render_template('home.html')	
 
 class UserInfo(db.Model):
 	# class user(Base):
@@ -51,7 +52,6 @@ class UserInfo(db.Model):
 	fullname = db.Column(db.String(120))
 	"""docstring for user"""
 	def __init__(self, UserName, passward, fullname):
-		super(user, self).__init__()
 		self.UserName = UserName
 		self.passward = passward
 		self.fullname = fullname
@@ -68,17 +68,14 @@ class Qustion(db.Model):
 	question = db.Column(db.String(120))
 	subject = db.Column(db.String(120))
 	explanation =db.Column(db.String(120))
-	userId= db.Column(db.Integer)
 
-	''
 	def __init__(self,question,subject,explanation):
 		self.question=question
 		self.subject=subject
 		self.explanation=explanation
-		self.userId=userId
 	def __repr__(self):
-	    return "<User(question='%s', subject='%s', explanation = '%s', userId='%i')'>" % (
-	                       self.question, self.subject, self.explanation, self.userId)
+	    return "<User(question='%s', subject='%s', explanation = '%s')'>" % (
+	                       self.question, self.subject, self.explanation)
 db.create_all()
 
 			
