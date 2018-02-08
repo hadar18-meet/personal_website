@@ -6,9 +6,11 @@ from flask import request
 app = Flask(__name__)
 db = SQLAlchemy(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+@app.route('/')
 @app.route('/home')
 def home():
 	return render_template('home.html')
+
 @app.route('/Q&A')
 def Q_and_A():
 	return render_template('Q&A.html')
