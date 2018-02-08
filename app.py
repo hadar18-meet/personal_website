@@ -1,4 +1,5 @@
 
+import flask
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 from flask import render_template 
@@ -6,7 +7,7 @@ from flask import request
 app = Flask(__name__)
 db = SQLAlchemy(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
-@app.route('/')
+
 @app.route('/home')
 def home():
 	return render_template('home.html')
@@ -34,6 +35,7 @@ def About():
 @app.route('/singin', methods=['POST', 'GET'])
 @app.route('/', methods=['POST', 'GET'])
 def singin():
+@app.route('/')
 	if request.method == 'GET':
 		return render_template('singin.html')
 	else:	
