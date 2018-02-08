@@ -1,12 +1,12 @@
-
-import flask
-from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 from flask import render_template 
 from flask import request
 app = Flask(__name__)
-db = SQLAlchemy(app)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+SQLALCHEMY_TRACK_MODIFICATIONS = True
+db = SQLAlchemy(app)
 
 @app.route('/home')
 def home():
@@ -32,10 +32,10 @@ def profile():
 @app.route('/about')
 def About():
 	return render_template('about.html')	
+	
 @app.route('/singin', methods=['POST', 'GET'])
 @app.route('/', methods=['POST', 'GET'])
 def singin():
-@app.route('/')
 	if request.method == 'GET':
 		return render_template('singin.html')
 	else:	
@@ -79,8 +79,8 @@ class Qustion(db.Model):
 		self.subject=subject
 		self.explanation=explanation
 	def __repr__(self):
-	    return "<User(question='%s', subject='%s', explanation = '%s')'>" % (
-	                       self.question, self.subject, self.explanation)
+		return "<User(question='%s', subject='%s', explanation = '%s')'>" % (
+						   self.question, self.subject, self.explanation)
 db.create_all()
 
 			
